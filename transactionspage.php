@@ -31,8 +31,8 @@
       <tr>
         <th>Transaction Type</th>
         <th>Transaction Date</th>
-        <th>Code</th>
-        <th>Name</th>
+        <th>Symbol</th>
+        <!--<th>Name</th>-->
         <th>Stock Exchange</th>
         <th>Number of Shares</th>
         <th>Unit Price</th>
@@ -60,23 +60,27 @@
           if($query_run=mysql_query($sql)){
              $query_num_rows=mysql_num_rows($query_run);        
              if($query_num_rows==0){
+                
                 echo "</table><p>No Transaction History</p>";  
              }
              else{
                 while($row = mysql_fetch_row($query_run)){ 
+                     
                   $numOfShares=floatVal($row[2]);
                   $currency=$row[6];
                       if($currency="INR"){
                        //   $shareValue=0.015005*$row[3];
-                          $shareValue = currency("INR", "USD", $row[3]);
+                          //echo ($currency); 
+                          $shareValue = $row[3] /*currency("INR", "USD", $row[3])*/;
                       }
                       else{
+                          echo ($currency);
                         $shareValue=$row[3];
                       }?>
                   <tr><td><?php echo $row[8]; ?></td>
                   <td><?php echo $row[5]; ?></td>
                   <td><?php echo $row[9]; ?></td>
-                  <td><?php echo $row[1]; ?></td>
+                  
                   <td><?php echo $row[4]; ?></td>
                   <td><?php echo $row[2]; ?></td>
                   <td><?php echo "$".$shareValue; ?></td>
